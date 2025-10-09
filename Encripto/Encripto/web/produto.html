@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Produto</title>
+        <link rel="stylesheet" href="css/produto.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo"><a href="index.html">Encripto</a></div>
+            <div class="search-bar">
+                <input type="text" placeholder="Pesquisar" />
+            </div>
+            <nav>
+                <a href="#" class="cart" id="cart-btn">🛒</a>
+                <a href="login.html" class="cart">👤</a>
+            </nav>
+        </header>
+
+        <div class="body2">
+            <div class="produto-container">
+                <img src="imgs/Selecionada.png" alt="Imagem do produto">
+                <div class="info-produto">
+                    <div class="titulo-preco">
+                        <h2>Nome do Produto</h2>
+                        <span>R$ 20,00</span>
+                    </div>
+                    <hr>
+                    <div class="descricao">
+                        <h3>Descrição</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium non felis in tempor. 
+                            Nulla commodo, justo vitae condimentum interdum, est erat mattis velit, a semper nunc augue 
+                            et est. Suspendisse potenti. Ut lorem diam, suscipit quis rutrum et, cursus ut lorem.
+                        </p>
+                    </div>
+
+                    <!-- Botão de adicionar ao carrinho -->
+                    <button id="btn-add-carrinho" class="add-btn">Adicionar ao carrinho</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Encripto - Todos os direitos reservados.</p>
+        </footer>
+
+        <!-- ====================================== -->
+        <!-- Carrinho lateral-->
+        <div id="cart-sidebar" class="cart-sidebar">
+            <div class="cart-header">
+                <h2>Seu Carrinho</h2>
+                <span id="close-cart">&times;</span>
+            </div>
+
+            <div class="cart-items" id="cart-items">
+                <p>Nenhum item no carrinho.</p>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <p>Subtotal: <span id="cart-subtotal">R$ 0,00</span></p>
+                    <p>Frete: <span id="cart-frete">R$ 0,00</span></p>
+                    <p><strong>Total: <span id="cart-total">R$ 0,00</span></strong></p>
+                </div>
+                <div class="shipping">
+                    <input type="text" id="cep-input" placeholder="Informe seu CEP" />
+                    <button id="btn-calcular-frete">Calcular Frete</button>
+                    <div id="opcoes-frete"></div>
+                </div>
+                <button id="finalizar-btn">Finalizar Compra</button>
+            </div>
+        </div>
+
+        <script src="scripts/produto.js"></script>
+    </body>
+</html>
