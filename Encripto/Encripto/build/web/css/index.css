@@ -1,5 +1,3 @@
-/* Reset básico */
-/* Fonte personalizada */
 @font-face {
     font-family: 'FonteMarca';
     src: url('../fonts/calora.otf') format('opentype');
@@ -28,7 +26,6 @@
     font-style: italic;
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -39,6 +36,16 @@
 body {
     background-color: #fff;
     color: #111;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 /* Cabeçalho */
@@ -52,19 +59,6 @@ header {
     flex-wrap: wrap;
 }
 
-.logo {
-    font-size: 3rem;
-    font-weight: bold;
-    font-family: 'FonteMarca', sans-serif;
-
-}
-
-.search-bar input {
-    padding: 6px 100px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
 nav {
     display: flex;
     gap: 20px;
@@ -72,7 +66,6 @@ nav {
 }
 
 nav a {
-    font-family: 'Playfair';
     text-decoration: none;
     color: #333;
     font-weight: 900;
@@ -135,7 +128,7 @@ nav a:hover {
     padding-bottom: 5px;
 }
 
-/* Cards mais vendidos */
+/* Cards */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -160,7 +153,6 @@ nav a:hover {
     transform: scale(1.08);
 }
 
-/* Bloco transparente com informações */
 .card-info {
     position: absolute;
     bottom: 0;
@@ -190,34 +182,97 @@ nav a:hover {
     font-size: 0.9rem;
 }
 
-.card-info .btn {
+.card-info .btn,
+.add-btn {
     display: inline-block;
-    padding: 5px 12px;
     background: #ff4d6d;
     color: #fff;
     text-decoration: none;
-    border-radius: 6px;
+    cursor: pointer;
     font-size: 0.85rem;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 5px;
+
 }
 
-.card-info .btn:hover {
+.card-info .btn:hover,
+.add-btn:hover {
     background: #ff1a45;
+    border: none;
+
 }
 
-/* Rodapé */
+.add-btn {
+    margin-top: 8px;
+    padding: 6px 10px;
+}
+
 footer {
-    background: #f4f4f4;
+    background-color: #000;
+    color: #e3e3e3;
+    padding: 80px 40px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 15px;
-    font-size: 0.9rem;
-    color: #444;
-    margin-top: 40px;
+    margin: 0;
 }
 
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 900px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 60px;
+}
+
+.footer-top a {
+    color: #e3e3e3;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-top a:hover {
+    opacity: 1;
+}
+
+.footer-logo {
+    font-family: 'FonteMarca', sans-serif;
+    font-size: 180px;
+    font-weight: 900;
+    letter-spacing: -8px;
+    color: #e3e3e3;
+    opacity: 0.45;
+    line-height: 1;
+    margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        font-size: 10px;
+        margin-bottom: 30px;
+    }
+
+    .footer-logo {
+        font-size: 90px;
+        letter-spacing: -4px;
+    }
+}
+
+/* Carrinho lateral */
 .cart-sidebar {
     position: fixed;
     top: 0;
-    right: -400px; /* começa fora da tela */
+    right: -400px;
     width: 300px;
     height: 100%;
     background-color: #fff;
@@ -229,10 +284,9 @@ footer {
 }
 
 .cart-sidebar.active {
-    right: 0; /* abre o sidebar */
+    right: 0;
 }
 
-/* Header */
 .cart-header {
     display: flex;
     justify-content: space-between;
@@ -246,14 +300,12 @@ footer {
     font-size: 1.5rem;
 }
 
-/* Conteúdo do carrinho */
 .cart-items {
     flex: 1;
     padding: 1rem;
     overflow-y: auto;
 }
 
-/* Footer */
 .cart-footer {
     padding: 1rem;
     border-top: 1px solid #ddd;
@@ -269,7 +321,72 @@ footer {
     border-radius: 4px;
 }
 
+.cart-footer button:hover {
+    background: #ff1a45;
+}
 
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.cart-item img {
+    border-radius: 6px;
+}
+
+.cart-item .info {
+    flex: 1;
+}
+
+.cart-item .qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cart-item button {
+    background: #ff4d6d;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cart-item button:hover {
+    background: #ff1a45;
+}
+
+/* Frete */
+.shipping {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.shipping input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.shipping button {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.shipping button:hover {
+    background: #ff1a45;
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -283,89 +400,7 @@ footer {
         width: 90px;
     }
 
-    .grid img {
-        width: 90%;
-    }
-
     .cards {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-}
-
-.cart-item img {
-  border-radius: 6px;
-}
-
-.cart-item .info {
-  flex: 1;
-}
-
-.cart-item .qty {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.cart-item button {
-  background: #ff4d6d;
-  border: none;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cart-item button:hover {
-  background: #ff1a45;
-}
-
-.shipping {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.shipping input {
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.shipping button {
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 6px;
-  cursor: pointer;
-}
-
-.shipping button:hover {
-  background: #0056b3;
-}
-
-.add-btn {
-  display: inline-block;
-  margin-top: 8px;
-  background: #ff4d6d;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.add-btn:hover {
-  background: #ff4d6d;
 }
