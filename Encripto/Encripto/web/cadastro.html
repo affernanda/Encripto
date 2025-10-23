@@ -2,21 +2,60 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Exemplo Fonte Local</title>
-        <link rel="stylesheet" href="css/login.css">
+        <title>Cadastro - Encripto</title>
+        <link rel="stylesheet" href="css/cadastro.css">
     </head>
     <body>
-        <h1>Encripto</h1>
+        <div class="container">
+            <h1><a href="index.html">Encripto</a></h1>
 
-        <form>
-            <input type="text" placeholder="Nome">
-            <input type="text" placeholder="Email">
-            <input type="text" placeholder="CPF">
-            <input type="password" placeholder="Senha">
-            <button type="submit">Cadastrar</button>
-        </form>
-        <div class="links">
-            <a href="login.html">Logar</a>
+            <form action="jsps/cadastro.jsp" name="formcadastro" method="post">
+                <h2>Informações de Cadastro</h2>
+                <div class="linha">
+                    <input type="text" placeholder="nome" name="nome" required>
+                    <input type="text" placeholder="email" name="email" required>
+                </div>
+
+                <div class="linha">
+                    <input type="text" placeholder="CPF" name="cpf" required>
+                    <input type="date" placeholder="nascimento" name="dataNascimento" required>
+                </div>
+
+                <h4>Gênero</h4>
+                <div class="radio">
+                    <label><input type="radio" name="genero" value="Mulher" required> Mulher</label>
+                    <label><input type="radio" name="genero" value="Homem" required> Homem</label>
+                    <label><input type="radio" name="genero" value="Não-binário" required> Não-binário</label>
+                    <label><input type="radio" name="genero" value="Prefiro Não Informar" required> Prefiro Não Informar</label>
+                    <label><input type="radio" name="genero" value="Outros" required> Outros</label>
+                </div>
+
+                <div class="radio" style="font-weight: bold;">
+                    <label><input type="radio" name="padrao" value="padrao"> Endereço de Faturamento</label>
+                </div>
+
+                <div class="linha">
+                    <input type="text" placeholder="CEP" name="cep" id="cep" maxlength="9" required>
+                    <input type="text" placeholder="logradouro" name="logradouro" id="logradouro" required>
+                </div>
+
+                <div class="linha">
+                    <input type="text" placeholder="bairro" name="bairro" id="bairro" required>
+                    <input type="text" placeholder="cidade" name="cidade" id="cidade" required>
+                </div>
+
+                <div class="linha">
+                    <input type="text" placeholder="UF" name="uf" id="uf" maxlength="2" required>
+                    <input type="text" placeholder="número" name="numero" id="numero" required>
+                </div>
+
+                <input type="text" placeholder="complemento" name="complemento">
+                <input type="password" placeholder="senha" name="senha" required>
+                <button type="submit">Cadastrar</button>
+                <div class="links"> <a href="login.html">Logar</a></div>
+            </form>
         </div>
+
+        <script src="scripts/APICadastro.js"></script>
     </body>
 </html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Encripto</title>
+
+        <style>
+            @font-face {
+                font-family: 'FonteMarca';
+                src: url('../fonts/calora.otf') format('opentype');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            .edit button[type="submit"] {
+                background-color: black;
+                color: white;
+                padding: 8px 16px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-family: 'Raleway', sans-serif;
+                transition: background 0.3s;
+                border: none;
+                box-shadow: none;
+                font-size: large;
+            }
+
+            .edit button[type="submit"]:hover {
+                background-color: #ff1a45;
+            }
+        </style>
+
+        <link rel="stylesheet" href="css/enderecos.css"/>
+    </head>
+
+    <body>
+        <header>
+            <div class="logo">
+                <a href="index_logado.html"
+                   style="text-decoration: none; color: black; font-family: 'FonteMarca', sans-serif; font-size: 50px;">Encripto</a>
+            </div>
+            <nav>
+                <a href="#" class="cart" id="cart-btn">🛒</a>
+                <a href="jsps/perfil.jsp" class="cart">👤</a>
+            </nav>
+        </header>
+
+        <main class="profile-section">
+            <div class="profile-container">
+                <div class="profile-info">
+                    <form class="form" action="jsps/novoEndereco.jsp" method="post">
+                        <div class="edit">
+                            <div>
+                                <h1>Endereços</h1>
+                            </div>
+                            <button type="submit">Salvar</button>
+                        </div>
+
+                        <div class="carousel-container">
+                            <div class="form-slide">
+                                <table>
+                                    <tr>
+                                        <td><label for="cep">CEP</label></td>
+                                        <td><input type="text" id="cep" name="cep" placeholder="CEP" required></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="logradouro">Logradouro</label></td>
+                                        <td><input type="text" id="logradouro" name="logradouro" placeholder="logradouro"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="numero">Número</label></td>
+                                        <td><input type="text" id="numero" name="numero" placeholder="número"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="complemento">Complemento</label></td>
+                                        <td><input type="text" id="complemento" name="complemento" placeholder="complemento"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="bairro">Bairro</label></td>
+                                        <td><input type="text" id="bairro" name="bairro" placeholder="bairro"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="cidade">Cidade</label></td>
+                                        <td><input type="text" id="cidade" name="cidade" placeholder="cidade"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="uf">UF</label></td>
+                                        <td><input type="text" id="uf" name="uf" placeholder="UF" maxlength="2"></td>
+                                    </tr>
+                                    <tr class="linha-principal">
+                                        <td><label>Endereço Principal?</label></td>
+                                        <td>
+                                            <div class="radio">
+                                                <label><input type="radio" name="padrao" value="sim">Sim</label>
+                                                <label><input type="radio" name="padrao" value="nao" checked>Não</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <a href="jsps/perfil.jsp" class="update">Voltar ao Perfil →</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+        <div id="cart-sidebar" class="cart-sidebar">
+            <div class="cart-header">
+                <h2>Seu Carrinho</h2>
+                <span id="close-cart">&times;</span>
+            </div>
+
+            <div class="cart-items" id="cart-items">
+                <p>Nenhum item no carrinho.</p>
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <p>Subtotal: <span id="cart-subtotal">R$ 0,00</span></p>
+                    <p>Frete: <span id="cart-frete">R$ 0,00</span></p>
+                    <p><strong>Total: <span id="cart-total">R$ 0,00</span></strong></p>
+                </div>
+                <div class="shipping">
+                    <input type="text" id="cep-input" placeholder="Informe seu CEP" />
+                    <button id="btn-calcular-frete">Calcular Frete</button>
+                    <div id="opcoes-frete"></div>
+                </div>
+                <button id="finalizar-btn">Finalizar Compra</button>
+            </div>
+        </div>
+
+        <script src="scripts/enderecos.js"></script>
+        <script src="scripts/index.js"></script>
+        <script src="scripts/APICadastro.js"></script>
+    </body>
+
+</html>

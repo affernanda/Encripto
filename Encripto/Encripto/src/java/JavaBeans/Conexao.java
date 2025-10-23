@@ -22,9 +22,7 @@ public class Conexao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(servidor, usuario, senha);
-
-            this.criarBanco();  
-
+            this.criarBanco();
             statusSQL = null;
         } catch (ClassNotFoundException ex) {
             statusSQL = "Driver JDBC não encontrado! " + ex.getMessage();
@@ -43,40 +41,35 @@ public class Conexao {
             ps = con.prepareStatement(sql);
             ps.executeUpdate();
 
-            sql = "create table if not exists usuarios ( "
-                    + "pkuser int not null auto_increment,"
-                    + "email varchar(40) not null,"
-                    + "senha varchar(20) not null,"
-                    + "nome varchar(40) not null,"
-                    + "idade varchar(5) not null,"
+            sql = "create table if not exists usuario ( "
+                    + "pkuser int not null auto_increment, "
+                    + "nome varchar(250) not null, "
+                    + "email varchar(40) not null, "
+                    + "cpf varchar(11) not null, "
+                    + "data_nascimento date not null, "
+                    + "genero varchar(15) not null, "
+                    + "senha_hash varchar(255) not null, "
                     + "PRIMARY KEY (pkuser))";
             ps = con.prepareStatement(sql);
             ps.executeUpdate();
-            
-            sql = "create table if not exists produtos ("
-                    + "pkproduct int not null auto_increment, "
-                    + "nome varchar(40) not null, "
-                    + "descricao varchar(400) not null, "
-                    + "preco double not null, "
-                    + "avaliacao int not null, "
-                    + "PRIMARY KEY (pkproduct))";
-            
-            ps = con.prepareStatement(sql);
-            ps.executeUpdate();
-            
-            sql = "create table if not exists carrinho ("
-                    + "pkcart int not null auto_increment, "
+
+            sql = "create table if not exists enderecos ("
+                    + "pkenderecos int not null auto_increment, "
                     + "pkuser int not null, "
-                    + "pkproduct int not null, "
-                    + "quantidade int(10) not null, "
-                    + "total double not null, "
-                    + "PRIMARY KEY (pkcart), "
-                    + "CONSTRAINT fk_cart_user FOREIGN KEY (pkuser) REFERENCES usuarios(pkuser), "
-                    + "CONSTRAINT fk_cart_product FOREIGN KEY (pkproduct) REFERENCES produtos(pkproduct))";
-            
+                    + "cep varchar(9) not null, "
+                    + "logradouro varchar(255) not null, "
+                    + "numero varchar(8) not null, "
+                    + "complemento varchar(200), "
+                    + "bairro varchar(255) not null, "
+                    + "cidade varchar(255) not null, "
+                    + "uf varchar(2) not null, "
+                    + "padrao BOOLEAN DEFAULT FALSE, "
+                    + "PRIMARY KEY (pkenderecos), "
+                    + "CONSTRAINT fk_enderecos_user FOREIGN KEY (pkuser) REFERENCES usuario(pkuser))";
+
             ps = con.prepareStatement(sql);
             ps.executeUpdate();
-                    
+
         } catch (SQLException err) {
             statusSQL = "Erro ao executar SQL " + err.getMessage();
         }
