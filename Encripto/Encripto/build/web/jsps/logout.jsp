@@ -8,5 +8,5 @@
 %>
 <script>
     alert("Deslogado!");
-    window.location.href = "../index.html";
+    window.location.href = "../index.jsp";
 </script>

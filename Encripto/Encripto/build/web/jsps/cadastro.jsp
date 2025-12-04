@@ -15,6 +15,7 @@
     } else {
         user.dataNascimento = null;
     }
+    user.cargo = "Usuario";
 
     user.incluir();
 
