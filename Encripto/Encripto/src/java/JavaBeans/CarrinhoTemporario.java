@@ -3,16 +3,16 @@ package JavaBeans;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Carrinho extends Conexao {
+public class CarrinhoTemporario extends Conexao {
 
-    public int pkcar;
-    public int pkuser;
+    public int pkcartemp;
+    public int session_id;
     public int pkproduto;
     public double total;
     public int quantidade;
 
     // ======== INSERIR ITEM NO CARRINHO ========
-    public void adicionarAoCarrinho() {
+    public void adicionarAoCarrinhoTemp() {
         try {
             // 1️⃣ Buscar valor do produto
             sql = "SELECT valor FROM produto WHERE pkproduto = ?";
@@ -29,9 +29,9 @@ public class Carrinho extends Conexao {
             double totalItem = valorProduto * this.quantidade;
 
             // 2️⃣ Verificar se já existe no carrinho
-            sql = "SELECT quantidade, total FROM carrinho WHERE pkuser = ? AND pkproduto = ?";
+            sql = "SELECT quantidade, total FROM carrinhoTemporario WHERE session_id = ? AND pkproduto = ?";
             ps = con.prepareStatement(sql);
-            ps.setInt(1, this.pkuser);
+            ps.setInt(1, this.session_id);
             ps.setInt(2, this.pkproduto);
             ResultSet rs = ps.executeQuery();
 
@@ -42,17 +42,17 @@ public class Carrinho extends Conexao {
                 int novaQuantidade = quantidadeAtual + this.quantidade;
                 double novoTotal = totalAtual + totalItem;
 
-                sql = "UPDATE carrinho SET quantidade = ?, total = ? WHERE pkuser = ? AND pkproduto = ?";
+                sql = "UPDATE carrinhoTemporario SET quantidade = ?, total = ? WHERE session_id = ? AND pkproduto = ?";
                 ps = con.prepareStatement(sql);
                 ps.setInt(1, novaQuantidade);
                 ps.setDouble(2, novoTotal);
-                ps.setInt(3, this.pkuser);
+                ps.setInt(3, this.session_id);
                 ps.setInt(4, this.pkproduto);
                 ps.executeUpdate();
             } else {
-                sql = "INSERT INTO carrinho (pkuser, pkproduto, quantidade, total) VALUES (?, ?, ?, ?)";
+                sql = "INSERT INTO carrinhoTemporario (session_id, pkproduto, quantidade, total) VALUES (?, ?, ?, ?)";
                 ps = con.prepareStatement(sql);
-                ps.setInt(1, this.pkuser);
+                ps.setInt(1, this.session_id);
                 ps.setInt(2, this.pkproduto);
                 ps.setInt(3, this.quantidade);
                 ps.setDouble(4, totalItem);
@@ -64,13 +64,13 @@ public class Carrinho extends Conexao {
     }
 
     // ======== LISTAR ITENS DO CARRINHO ========
-    public ResultSet listarCarrinho(int pkuser) {
+    public ResultSet listarCarrinhoTemp(int session_id) {
         try {
-            sql = "SELECT c.pkcar, c.pkproduto, c.quantidade, p.nome, p.valor, p.imagem "
-                    + "FROM carrinho c INNER JOIN produto p ON c.pkproduto = p.pkproduto "
-                    + "WHERE c.pkuser = ?";
+            sql = "SELECT c.pkcartemp, c.pkproduto, c.quantidade, p.nome, p.valor, p.imagem "
+                    + "FROM carrinhoTemporario c INNER JOIN produto p ON c.pkproduto = p.pkproduto "
+                    + "WHERE c.session_id = ?";
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pkuser);
+            ps.setInt(1, session_id);
             tab = ps.executeQuery();
         } catch (SQLException e) {
             System.out.println("Erro ao listar carrinho: " + e);
@@ -79,11 +79,11 @@ public class Carrinho extends Conexao {
     }
 
     // ======== REMOVER ITEM DO CARRINHO ========
-    public void removerItem(int pkcar) {
+    public void removerItemTemp(int pkcartemp) {
         try {
-            sql = "DELETE FROM carrinho WHERE pkcar = ?";
+            sql = "DELETE FROM carrinhoTemporario WHERE pkcartemp = ?";
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pkcar);
+            ps.setInt(1, pkcartemp);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao remover item: " + e);
@@ -91,11 +91,11 @@ public class Carrinho extends Conexao {
     }
 
     // ======== LIMPAR CARRINHO APÓS COMPRA ========
-    public void limparCarrinho(int pkuser) {
+    public void limparCarrinhoTemp(int session_id) {
         try {
-            sql = "DELETE FROM carrinho WHERE pkuser = ?";
+            sql = "DELETE FROM carrinhoTemporario WHERE session_id = ?";
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pkuser);
+            ps.setInt(1, session_id);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao limpar carrinho: " + e);
@@ -103,13 +103,13 @@ public class Carrinho extends Conexao {
     }
 
     // ======== CALCULAR TOTAL DO CARRINHO ========
-    public double calcularTotal(int pkuser) {
+    public double calcularTotalTemp(int session_id) {
         double total = 0.0;
 
         try {
-            sql = "SELECT SUM(total) AS totalCarrinho FROM carrinho WHERE pkuser = ?";
+            sql = "SELECT SUM(total) AS totalCarrinho FROM carrinhoTemporario WHERE session_id = ?";
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pkuser);
+            ps.setInt(1, session_id);
 
             ResultSet rs = ps.executeQuery();
 
@@ -124,4 +124,22 @@ public class Carrinho extends Conexao {
         return total;
     }
 
+    public void insertnew(int session_id, int pkuser) {
+        try {
+            sql = "INSERT INTO carrinho (pkuser, pkproduto, total, quantidade) "
+                    + "SELECT ?, pkproduto, total, quantidade "
+                    + "FROM carrinhoTemporario "
+                    + "WHERE session_id = ? ";
+
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, pkuser);
+            ps.setInt(2, session_id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir produtos temporários no Carrinho: " + e.getMessage());
+        }
+    }
 }

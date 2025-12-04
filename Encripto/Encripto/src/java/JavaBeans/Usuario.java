@@ -13,6 +13,7 @@ public class Usuario extends Conexao {
     public java.sql.Date dataNascimento;
     public String genero;
     public String senhaHash;
+    public String cargo;
 
     public Usuario() {
         super();
@@ -102,6 +103,7 @@ public class Usuario extends Conexao {
                 this.dataNascimento = tab.getDate("data_nascimento");
                 this.genero = tab.getString("genero");
                 this.senhaHash = tab.getString("senha_hash");
+                this.cargo = tab.getString("cargo");
                 return true;
             }
             this.statusSQL = null;
@@ -126,6 +128,7 @@ public class Usuario extends Conexao {
                 this.dataNascimento = tab.getDate("data_nascimento");
                 this.genero = tab.getString("genero");
                 this.senhaHash = tab.getString("senha_hash");
+                this.cargo = tab.getString("cargo");
                 return true;
             }
             this.statusSQL = null;
@@ -149,7 +152,7 @@ public class Usuario extends Conexao {
             return;
         }
         try {
-            sql = "INSERT INTO usuario (nome, email, cpf, data_nascimento, genero, senha_hash) VALUES (?, ?, ?, ?, ?, ?)";
+            sql = "INSERT INTO usuario (nome, email, cpf, data_nascimento, genero, senha_hash, cargo) VALUES (?, ?, ?, ?, ?, ?, ?)";
             ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS); // <- ESSENCIAL
             ps.setString(1, nome);
             ps.setString(2, email);
@@ -157,6 +160,7 @@ public class Usuario extends Conexao {
             ps.setDate(4, dataNascimento);
             ps.setString(5, genero);
             ps.setString(6, hashSenha(senhaHash));
+            ps.setString(7, cargo);
 
             int rowsAffected = ps.executeUpdate(); // <- Confirma se inseriu
 
@@ -202,6 +206,10 @@ public class Usuario extends Conexao {
             sql += "senha_hash = ?,";
             hasField = true;
         }
+        if (this.cargo != null) {
+            sql += "cargo = ?,";
+            hasField = true;
+        }
 
         sql = sql.trim();
         if (sql.endsWith(",")) {
@@ -233,6 +241,9 @@ public class Usuario extends Conexao {
             }
             if (this.senhaHash != null) {
                 ps.setString(index++, this.senhaHash);
+            }
+            if (this.cargo != null) {
+                ps.setString(index++, this.cargo);
             }
 
             ps.setInt(index, this.pkuser);
