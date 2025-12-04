@@ -26,8 +26,19 @@
     e.incluirEndereco(); // insere no banco
 
     if (e.statusSQL == null) {
-        // Sucesso
-        out.println("<script>alert('Endereço cadastrado com sucesso!'); window.location.href='enderecos.jsp';</script>");
+        String origem = request.getParameter("origem");
+        String destino;
+
+        if ("carrinho".equalsIgnoreCase(origem)) {
+            destino = "carrinho_logado.jsp";
+        } else {
+            destino = "perfil.jsp";
+        }
+
+        out.println("<script>");
+        out.println("alert('Endereço cadastrado com sucesso!');");
+        out.println("window.location.href='" + destino + "';");
+        out.println("</script>");
     } else {
         out.println("<script>alert('Erro ao cadastrar endereço: " + e.statusSQL + "'); history.back();</script>");
     }
