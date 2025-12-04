@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Encripto</title>
+        <title>Encripto - Editar Endereço</title>
 
         <style>
             @font-face {
@@ -32,17 +32,17 @@
             }
         </style>
 
-        <link rel="stylesheet" href="css/enderecos.css"/>
+        <link rel="stylesheet" href="css/enderecos.css" />
     </head>
 
     <body>
         <header>
             <div class="logo">
-                <a href="index_logado.html"
-                   style="text-decoration: none; color: black; font-family: 'FonteMarca', sans-serif; font-size: 50px;">Encripto</a>
+                <a href="index_logado.jsp"
+                   style="text-decoration: none; color: white; font-family: 'FonteMarca', sans-serif; font-size: 50px;">Encripto</a>
             </div>
             <nav>
-                <a href="#" class="cart" id="cart-btn">🛒</a>
+                <a href="jsps/carrinho_logado.jsp" class="cart" id="cart-btn">🛒</a>
                 <a href="jsps/perfil.jsp" class="cart">👤</a>
             </nav>
         </header>
@@ -51,11 +51,12 @@
             <div class="profile-container">
                 <div class="profile-info">
                     <form class="form" action="jsps/novoEndereco.jsp" method="post">
+                        <input type="hidden" name="origem" id="origem" value="">
                         <div class="edit">
                             <div>
                                 <h1>Endereços</h1>
                             </div>
-                            <button type="submit">Salvar</button>
+                            <button id="botao-salvar" type="submit">Salvar</button> 
                         </div>
 
                         <div class="carousel-container">
@@ -67,7 +68,8 @@
                                     </tr>
                                     <tr>
                                         <td><label for="logradouro">Logradouro</label></td>
-                                        <td><input type="text" id="logradouro" name="logradouro" placeholder="logradouro"></td>
+                                        <td><input type="text" id="logradouro" name="logradouro" placeholder="logradouro">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td><label for="numero">Número</label></td>
@@ -75,7 +77,8 @@
                                     </tr>
                                     <tr>
                                         <td><label for="complemento">Complemento</label></td>
-                                        <td><input type="text" id="complemento" name="complemento" placeholder="complemento"></td>
+                                        <td><input type="text" id="complemento" name="complemento"
+                                                   placeholder="complemento"></td>
                                     </tr>
                                     <tr>
                                         <td><label for="bairro">Bairro</label></td>
@@ -105,7 +108,8 @@
                     <table>
                         <tr>
                             <td colspan="2">
-                                <a href="jsps/perfil.jsp" class="update">Voltar ao Perfil →</a>
+                                <a href="jsps/perfil.jsp" class="update">Voltar ao Perfil →</a><br>
+                                <a href="jsps/carrinho_logado.jsp" class="update">Voltar ao Carrinho →</a>
                             </td>
                         </tr>
                     </table>
@@ -113,34 +117,16 @@
             </div>
 
         </main>
-
-        <div id="cart-sidebar" class="cart-sidebar">
-            <div class="cart-header">
-                <h2>Seu Carrinho</h2>
-                <span id="close-cart">&times;</span>
-            </div>
-
-            <div class="cart-items" id="cart-items">
-                <p>Nenhum item no carrinho.</p>
-            </div>
-
-            <div class="cart-footer">
-                <div class="cart-summary">
-                    <p>Subtotal: <span id="cart-subtotal">R$ 0,00</span></p>
-                    <p>Frete: <span id="cart-frete">R$ 0,00</span></p>
-                    <p><strong>Total: <span id="cart-total">R$ 0,00</span></strong></p>
-                </div>
-                <div class="shipping">
-                    <input type="text" id="cep-input" placeholder="Informe seu CEP" />
-                    <button id="btn-calcular-frete">Calcular Frete</button>
-                    <div id="opcoes-frete"></div>
-                </div>
-                <button id="finalizar-btn">Finalizar Compra</button>
-            </div>
-        </div>
+        <script>
+            // Captura o parâmetro origem da URL e injeta no input hidden
+            const params = new URLSearchParams(window.location.search);
+            const origem = params.get("origem");
+            if (origem) {
+                document.getElementById("origem").value = origem;
+            }
+        </script>
 
         <script src="scripts/enderecos.js"></script>
-        <script src="scripts/index.js"></script>
         <script src="scripts/APICadastro.js"></script>
     </body>
 
