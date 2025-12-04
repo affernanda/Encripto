@@ -1,0 +1,198 @@
+/* ================= FONTS ================= */
+@font-face {
+    font-family: 'FonteMarca';
+    src: url('../fonts/calora.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FonteMarca';
+    src: url('../fonts/calora-italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+
+/* ================= RESET E BASE ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Playfair", sans-serif;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background-image: url('../imgsnotprod/fundo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: system-ui, sans-serif;
+    color: #111;
+    min-height: 100vh;
+}
+
+/* ================= MAIN ================= */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 0;
+    margin-top: 100px;
+}
+
+/* ================= HEADER ================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    flex-wrap: wrap;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 900;
+    font-size: larger;
+}
+
+nav a:hover {
+    color: #007BFF;
+}
+
+
+/* ================= CONTAINER PRINCIPAL ================= */
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* ================= BLOCO RESUMO PEDIDO ================= */
+.cart-container {
+    flex: 2;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #eee;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    padding: 35px;
+}
+
+.cart-container h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #111;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.cart-header, .cart-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+}
+
+.cart-header {
+    font-weight: 700;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.cart-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.cart-item button {
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    color:white;
+}
+
+.cart-item button:hover {
+    background-color: grey;
+    border: 1px solid grey;
+    color: white;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    color: #e3e3e3;
+    padding: 80px 40px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-logo {
+    font-family: 'FonteMarca', sans-serif;
+    font-size: 180px;
+    font-weight: 900;
+    letter-spacing: -8px;
+    color: #e3e3e3;
+    opacity: 0.45;
+    line-height: 1;
+    margin: 0;
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 950px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart-container, .summary {
+        width: 100%;
+    }
+
+    .cart-header, .cart-item {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .footer-logo {
+        font-size: 90px;
+    }
+}
